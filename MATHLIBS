@@ -1,0 +1,44 @@
+''' Create a Mad Libs program that reads in text files and lets the user add their own text anywhere the word ADJECTIVE, NOUN, ADVERB, or VERB appears in the text file. For example, a text file may look like this:
+The ADJECTIVE panda walked to the NOUN and then VERB. A nearby NOUN was
+unaffected by these events.
+The program would find these occurrences and prompt the user to replace them.
+Enter an adjective:
+silly
+Enter a noun:
+chandelier
+Enter a verb:
+screamed
+Enter a noun:
+pickup truck
+The following text file would then be created:
+The silly panda walked to the chandelier and then screamed. A nearby pickup truck was unaffected by these events.
+The results should be printed to the screen and saved to a new text file
+'''
+print("NAME: BHARGAV RAJ")
+print("USN:1AY24AI019")
+print("SECTION:M")
+import re
+
+def madlibs():
+    text = '''Today I went to the zoo. I saw a(n) ADJECTIVE NOUN jumping up and down in its tree.  
+He VERB ADVERB through the large tunnel that led to its NOUN.  
+I got some peanuts and passed them through the cage to a gigantic ADJECTIVE NOUN towering above my head.  
+Feeding that animal made me hungry. I went to get a ADJECTIVE scoop of ice cream.  
+It VERB ADVERB down my arm and onto my NOUN.'''
+
+    print("Original Text:\n", text)
+
+    placeholders = re.findall(r'\b(ADJECTIVE|NOUN|VERB|ADVERB)\b', text)
+
+    for placeholder in placeholders:
+        word = input(f"Enter a {placeholder.lower()}: ")
+        text = text.replace(placeholder, word, 1)
+
+    print("\nModified Text:\n", text)
+
+    with open('madlibs_output.txt', 'w') as file:
+        file.write(text)
+
+    print("\nModified text saved to 'madlibs_output.txt'")
+
+madlibs()
