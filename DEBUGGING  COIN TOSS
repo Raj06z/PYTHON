@@ -1,0 +1,36 @@
+print("NAME:BHARGAV RAJ")
+print("USN:1AY24AI019")
+print("SECTION:M")
+'''
+this is the program before debugging
+import random 
+guess = '' 
+while guess not in ('heads', 'tails'): 
+    print('Guess the coin toss! Enter heads or tails:') 
+    guess = input() 
+toss = random.randint(0, 1) # 0 is tails, 1 is heads 
+if toss == guess: 
+    print('You got it!') 
+else: 
+    print('Nope! Guess again!')
+    guesss = input() 
+    if toss == guess: 
+        print('You got it!') 
+    else: 
+        print('Nope. You are really bad at this game.')'''
+#after debugging
+import random
+guess = ''
+while guess not in ('heads', 'tails'):
+    print('Guess the coin toss! Enter heads or tails:')
+    guess = input().lower()  
+toss = random.randint(0, 1)
+if (toss == 1 and guess == 'heads') or (toss == 0 and guess == 'tails'):
+    print('You got it!')
+else:
+    print('Nope! Guess again!')
+    guess = input().lower()
+    if (toss == 1 and guess == 'heads') or (toss == 0 and guess == 'tails'):
+        print('You got it!')
+    else:
+        print('Nope. You are really bad at this game.')
