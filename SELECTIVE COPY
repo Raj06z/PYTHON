@@ -1,0 +1,30 @@
+'''Selective Copy
+Write a program that walks through a folder tree and searches for files with a certain file extension (such as .pdf or .jpg). Copy these files from whatever location they are 
+in to a new folder.
+'''
+print("NAME: BHARGAV RAJ")
+print("USN: 1AY24AI019")
+print("SECTION:M")
+import os
+import shutil
+
+def selective(source, extensions, destination):
+    source = os.path.abspath(source)
+    destination = os.path.abspath(destination)
+
+    print(f"Looking in '{source}' for files with extensions: {', '.join(extensions)}")
+
+    for foldername, subfolders, filenames in os.walk(source):
+        for filename in filenames:
+            _, ext = os.path.splitext(filename)
+            if ext.lower() in extensions:
+                source_file = os.path.join(foldername, filename)
+                print(f"Copying '{source_file}' to '{destination}'")
+                shutil.copy(source_file, destination)
+
+
+extensions = ['.php', '.py']
+source = 'randomFolder'
+destination = 'selectiveFolder'
+
+selective(source, extensions, destination)
