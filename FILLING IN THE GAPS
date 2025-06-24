@@ -1,0 +1,46 @@
+'''Filling in the Gaps
+Write a program that finds all files with a given prefix, such as spam001.txt, spam002.txt, and so on, in a 
+single folder and locates any gaps in the numbering (such as if there is a spam001.txt and spam003.txt but no spam002.txt). Have the program 
+rename all the later files to close this gap. As an added challenge, write another program that can insert gaps into numbered files so that a 
+new file can be added.
+'''
+print("NAME: BHARGAV RAJ")
+print("USN:1AY24AI019")
+print("SECTION:M")
+import os
+import re
+
+def fillgap(folder, prefix='spam', extension='.txt'):
+    # Regex to match files like spam001.txt
+    pattern = re.compile(rf'^{prefix}(\d+){re.escape(extension)}$')
+
+    files = []
+    for f in os.listdir(folder):
+        match = pattern.match(f)
+        if match:
+            number = int(match.group(1))
+            files.append((number, f))
+
+    if not files:
+        print("No matching files found.")
+        return
+
+    # Sort files based on number
+    files.sort()
+    
+    # Get number width (e.g., 3 for spam001)
+    number_width = len(re.search(r'\d+', files[0][1]).group())
+
+    expected_num = 1
+    for actual_num, filename in files:
+        if actual_num != expected_num:
+            # Rename file to close the gap
+            new_name = f"{prefix}{str(expected_num).zfill(number_width)}{extension}"
+            old_path = os.path.join(folder, filename)
+            new_path = os.path.join(folder, new_name)
+            os.rename(old_path, new_path)
+            print(f"Renamed {filename} → {new_name}")
+        expected_num += 1
+    print("Gaps filled successfully.")
+# Example usage
+fillgap(os.getcwd(), 'spam', '.txt')
